@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Accounts Coding Test</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="StyleSheets/AccountsView.css">
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="js/AccountsViewGridController.js"></script>
+
+    <article class="grid">
+        <header class="grid">
+            <div class="title-container">
+                <h1>Coding Test</h1>
+            </div>
+        </header>
+        <main class="content grid" id="home-content" ng-app="accountsViewGridApp" ng-controller="accountsViewGridController">
+            <div class="content-title-container">
+                <h2>Accounts</h2>
+            </div>
+            <section class="grid" id="account-grid">
+                <section class="account-column grid" id="active-account-column">
+                    <div class="account-container-title" id="active-account-container-title">
+                        <h3>Active</h3>
+                    </div>
+                    <div class="account-container active-account"
+                         ng-repeat="account in accountsList | filter:{AccountStatusId:0}">
+                        <ul class="account-data-list">
+                            <li class="account-name"><label>Name:</label>{{account.LastName}}, {{account.FirstName}}</li>
+                            <li><label>Email:</label>{{account.Email}}</li>
+                            <li><label>Phone Number:</label>{{account.PhoneNumber | telephone}}</li>
+                            <li><label>Amount Due:</label>{{account.AmountDue | currency}}</li>
+                            <li><label>Due Date:</label>{{account.PaymentDueDate | date:'M/d/yyyy'}}</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="account-column grid" id="overdue-account-column">
+                    <div class="account-container-title" id="overdue-account-container-title">
+                        <h3>Overdue</h3>
+                    </div>
+                    <div class="account-container overdue-account"
+                         ng-repeat="account in accountsList | filter:{AccountStatusId:2}">
+                        <ul class="account-data-list">
+                            <li class="account-name"><label>Name:</label>{{account.LastName}}, {{account.FirstName}}</li>
+                            <li><label>Email:</label>{{account.Email}}</li>
+                            <li><label>Phone Number:</label>{{account.PhoneNumber | telephone}}</li>
+                            <li><label>Amount Due:</label>{{account.AmountDue | currency}}</li>
+                            <li><label>Due Date:</label>{{account.PaymentDueDate | date:'M/d/yyyy'}}</li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="account-column grid" id="inactive-account-column">
+                    <div class="account-container-title" id="inactive-account-container-title">
+                        <h3>Inactive</h3>
+                    </div>
+                    <div class="account-container inactive-account"
+                         ng-repeat="account in accountsList | filter:{AccountStatusId:1}">
+                        <ul class="account-data-list">
+                            <li class="account-name"><label>Name:</label>{{account.LastName}}, {{account.FirstName}}</li>
+                            <li><label>Email:</label>{{account.Email}}</li>
+                            <li><label>Phone Number:</label>{{account.PhoneNumber | telephone}}</li>
+                            <li><label>Amount Due:</label>{{account.AmountDue | currency}}</li>
+                            <li ng-hide="account.PaymentDueDate == null"><label>Due Date:</label>{{account.PaymentDueDate | date:'M/d/yyyy'}}</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+        </main>
+        <footer class="grid">
+            <p class="copy">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script>
+            </p>
+        </footer>
+    </article>
+</body>
+</html>
